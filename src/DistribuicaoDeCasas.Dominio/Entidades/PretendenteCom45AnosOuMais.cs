@@ -1,5 +1,6 @@
 using System;
 using DistribuicaoDeCasas.Dominio._Excecoes;
+using DistribuicaoDeCasas.Dominio._Util;
 
 namespace DistribuicaoDeCasas.Dominio.Entidades
 {
@@ -11,10 +12,11 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
         public PretendenteCom45AnosOuMais(string nome, DateTime dataDeNascimento, decimal renda) 
             : base(nome, dataDeNascimento,renda)
         {
-            var idadeMinima = dataDeNascimento.AddYears(IdadeMinima);
+            var idade = dataDeNascimento.ObterIdadeEmAnos();
             
-            if (idadeMinima.Date > DateTime.Today.Date)
-                throw new ExcecaoDeDominio("O pretendente deve ter no mínimo 45 anos");
+            ValidadorDeDominio
+                .Instancia()
+                .Quando(idade < IdadeMinima, "O pretendente deve ter no mínimo 45 anos");
         }
 
         public override int ObterPontuacao()

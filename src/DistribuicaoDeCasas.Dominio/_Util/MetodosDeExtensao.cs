@@ -4,7 +4,7 @@ namespace DistribuicaoDeCasas.Dominio._Util
 {
     public static class MetodosDeExtensao
     {
-        public static int ObterIdade(this DateTime data)
+        public static int ObterIdadeEmAnos(this DateTime data)
         {
             var intervalo = DateTime.Today - data;
             

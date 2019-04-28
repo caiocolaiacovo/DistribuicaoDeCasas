@@ -13,14 +13,11 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
         public PretendenteComMenosDe30Anos(string nome, DateTime dataDeNascimento, decimal renda) 
             : base(nome, dataDeNascimento, renda)
         {
+            var idade = dataDeNascimento.ObterIdadeEmAnos();
+
             ValidadorDeDominio
                 .Instancia()
-                .Quando(dataDeNascimento < UltimaDataDeNascimentoPermitida(), "O pretendente deve ter no máximo 29 anos");
-        }
-
-        private DateTime UltimaDataDeNascimentoPermitida()
-        {
-            return DateTime.Today.SubtrairAnos(IdadeExcedente).AddDays(1);
+                .Quando(idade >= IdadeExcedente, "O pretendente deve ter no máximo 29 anos");
         }
 
         public override int ObterPontuacao()

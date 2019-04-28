@@ -9,7 +9,7 @@ namespace DistribuicaoDeCasas.Dominio.Fabricas
     {
         public static PretendenteFactory ObterFabrica(DateTime dataDeNascimento)
         {
-            var idade = dataDeNascimento.ObterIdade();
+            var idade = dataDeNascimento.ObterIdadeEmAnos();
 
             if (idade < 30)
                 return new PretendenteComMenosDe30AnosFactory();
