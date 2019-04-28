@@ -3,20 +3,19 @@ using Bogus;
 using DistribuicaoDeCasas.Dominio._Excecoes;
 using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
+using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Builders;
 using DistribuicaoDeCasas.DominioTeste._Util;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
 {
-    public class PretendenteComMenosDe30AnosTeste
+    public class PretendenteComMenosDe30AnosTeste : TesteBase
     {
         public readonly DateTime UltimaDataPermitida;
-        public readonly Faker faker;
 
         public PretendenteComMenosDe30AnosTeste()
         {
-            faker = new Faker();
             var idadeExcedente = 30 * -1;
             UltimaDataPermitida = DateTime.Today.AddYears(idadeExcedente).AddDays(1);
         }

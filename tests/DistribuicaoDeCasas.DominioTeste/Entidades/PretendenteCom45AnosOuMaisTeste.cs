@@ -3,6 +3,7 @@ using Bogus;
 using DistribuicaoDeCasas.Dominio._Excecoes;
 using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
+using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Builders;
 using DistribuicaoDeCasas.DominioTeste._Util;
 using Xunit;
@@ -15,7 +16,6 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
         public PretendenteCom45AnosOuMaisTeste()
         {
-            faker = new Faker();
             IdadeMinima = 45;
         }
 

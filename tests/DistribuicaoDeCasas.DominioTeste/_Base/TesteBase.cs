@@ -1,6 +1,6 @@
 using Bogus;
 
-namespace DistribuicaoDeCasas.DominioTeste.Entidades
+namespace DistribuicaoDeCasas.DominioTeste._Base
 {
     public class TesteBase
     {

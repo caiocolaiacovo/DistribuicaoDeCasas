@@ -1,16 +1,16 @@
 using System;
 using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.Dominio.Fabricas;
-using DistribuicaoDeCasas.DominioTeste.Entidades;
+using DistribuicaoDeCasas.DominioTeste._Base;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Fabricas
 {
-    public class PretendenteComMenosDe30AnosTeste : TesteBase
+    public class PretendenteComMenosDe30AnosFactoryTeste : TesteBase
     {
         public readonly int IdadeExcedente;
 
-        public PretendenteComMenosDe30AnosTeste()
+        public PretendenteComMenosDe30AnosFactoryTeste()
         {
             IdadeExcedente = 30;
         }

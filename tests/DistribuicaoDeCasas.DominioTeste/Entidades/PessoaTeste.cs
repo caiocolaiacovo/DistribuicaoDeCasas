@@ -2,12 +2,13 @@ using System;
 using Bogus;
 using DistribuicaoDeCasas.Dominio._Excecoes;
 using DistribuicaoDeCasas.Dominio.Entidades;
+using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Util;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
 {
-    public class PessoaTeste
+    public class PessoaTeste : TesteBase
     {
         class PessoaTestavel : Pessoa
         {
@@ -15,11 +16,8 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
                 : base(nome, dataDeNascimento){}
         }
 
-        public readonly Faker faker;
-
         public PessoaTeste()
         {
-            faker = new Faker();
         }
 
         [Fact]

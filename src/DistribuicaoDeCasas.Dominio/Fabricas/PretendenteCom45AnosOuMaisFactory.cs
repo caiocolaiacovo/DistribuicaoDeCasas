@@ -7,7 +7,7 @@ namespace DistribuicaoDeCasas.Dominio.Fabricas
     {
         public override Pretendente ObterPretendente(string nome, DateTime dataDeNascimento)
         {
-            return null;
+            return new PretendenteCom45AnosOuMais(nome, dataDeNascimento);
         }
     }
 }

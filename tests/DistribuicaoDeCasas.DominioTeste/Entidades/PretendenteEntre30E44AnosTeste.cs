@@ -3,21 +3,20 @@ using Bogus;
 using DistribuicaoDeCasas.Dominio._Excecoes;
 using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
+using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Builders;
 using DistribuicaoDeCasas.DominioTeste._Util;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
 {
-    public class PretendenteEntre30E44AnosTeste
+    public class PretendenteEntre30E44AnosTeste : TesteBase
     {
         public readonly int IdadeMinima;
         public readonly int IdadeExcedente;
-        public readonly Faker faker;
 
         public PretendenteEntre30E44AnosTeste()
         {
-            faker = new Faker();
             IdadeMinima = 30;
             IdadeExcedente = 45;
         }

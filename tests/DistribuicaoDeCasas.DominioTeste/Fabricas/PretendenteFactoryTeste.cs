@@ -1,10 +1,11 @@
 using System;
 using DistribuicaoDeCasas.Dominio.Fabricas;
+using DistribuicaoDeCasas.DominioTeste._Base;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Fabricas
 {
-    public class PretendenteFactoryTeste
+    public class PretendenteFactoryTeste : TesteBase
     {
         public readonly int IdadeMinima;
         public readonly int IdadeExcedente;
