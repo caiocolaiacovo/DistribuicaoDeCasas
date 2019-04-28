@@ -13,8 +13,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
     {
         class PessoaTestavel : Pessoa
         {
-            public PessoaTestavel(string nome, DateTime dataDeNascimento, decimal renda) 
-                : base(nome, dataDeNascimento, renda){}
+            public PessoaTestavel(string nome, DateTime dataDeNascimento) : base(nome, dataDeNascimento){}
         }
 
         public PessoaTeste()
@@ -27,10 +26,9 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             var pessoa = new {
                 Nome = faker.Person.FullName,
                 DataDeNascimento = DateTime.Today,
-                Renda = faker.Random.Decimal(0M, 2000M),
             };
 
-            var novaPessoa = new PessoaTestavel(pessoa.Nome, pessoa.DataDeNascimento, pessoa.Renda);
+            var novaPessoa = new PessoaTestavel(pessoa.Nome, pessoa.DataDeNascimento);
 
             pessoa.ToExpectedObject().ShouldMatch(novaPessoa);
         }
@@ -42,10 +40,9 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_falhar_ao_criar_uma_pessoa_com_nome_invalido(string nomeInvalido)
         {
             var dataDeNascimento = DateTime.Today;
-            var renda = faker.Random.Decimal(0M, 2000M);
 
             Assert.Throws<ExcecaoDeDominio>(() => {
-                new PessoaTestavel(nomeInvalido, dataDeNascimento, renda);
+                new PessoaTestavel(nomeInvalido, dataDeNascimento);
             }).ComMensagemDeErro("Nome obrigatório");
         }
 
@@ -54,23 +51,10 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         {
             var nome = faker.Person.FullName;
             var dataFutura = faker.Date.Future();
-            var renda = faker.Random.Decimal(0M, 2000M);
 
             Assert.Throws<ExcecaoDeDominio>(() => {
-                new PessoaTestavel(nome, dataFutura, renda);
+                new PessoaTestavel(nome, dataFutura);
             }).ComMensagemDeErro("Data de nascimento não pode ser maior que a data atual");
-        }
-
-        [Fact]
-        public void Deve_falhar_ao_criar_uma_pessoa_com_renda_negativa()
-        {
-            var nome = faker.Person.FullName;
-            var dataFutura = DateTime.Today;
-            var rendaInvalida = -1M;
-
-            Assert.Throws<ExcecaoDeDominio>(() => {
-                new PessoaTestavel(nome, dataFutura, rendaInvalida);
-            }).ComMensagemDeErro("A renda não pode ser negativa");
         }
     }   
 }

@@ -74,14 +74,6 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         }
 
         [Fact]
-        public void Deve_ser_uma_Criterio()
-        {
-            var novoPretendente = PretendenteCom45AnosOuMaisBuilder.Instancia().Construir();
-
-            Assert.True(novoPretendente is ICriterio);
-        }
-
-        [Fact]
         public void Deve_obter_a_pontuacao_esperada()
         {
             var pontuacaoEsperada = 3;

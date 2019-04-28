@@ -1,13 +1,19 @@
 using System;
+using DistribuicaoDeCasas.Dominio._Util;
 using DistribuicaoDeCasas.Dominio.Contratos;
 
 namespace DistribuicaoDeCasas.Dominio.Entidades
 {
     public abstract class Pretendente : Pessoa, ICriterio
     {
-        public Pretendente(string nome, DateTime dataDeNascimento) : base(nome, dataDeNascimento, 0) { } //Remover!!
-        public Pretendente(string nome, DateTime dataDeNascimento, decimal renda) 
-            : base(nome, dataDeNascimento, renda) { }
+        public Pretendente(string nome, DateTime dataDeNascimento, decimal renda) : base(nome, dataDeNascimento) 
+        { 
+            ValidadorDeDominio
+                .Instancia()
+                .Quando(renda < 0M, "A renda não pode ser negativa");
+
+            Renda = renda;
+        }
 
         public abstract int ObterPontuacao();
     }
