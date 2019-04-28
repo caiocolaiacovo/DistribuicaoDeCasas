@@ -5,9 +5,9 @@ namespace DistribuicaoDeCasas.Dominio.Fabricas
 {
     public class PretendenteCom45AnosOuMaisFactory : PretendenteFactory
     {
-        public override Pretendente ObterPretendente(string nome, DateTime dataDeNascimento)
+        public override Pretendente ObterPretendente(string nome, DateTime dataDeNascimento, decimal renda)
         {
-            return new PretendenteCom45AnosOuMais(nome, dataDeNascimento);
+            return new PretendenteCom45AnosOuMais(nome, dataDeNascimento, renda);
         }
     }
 }

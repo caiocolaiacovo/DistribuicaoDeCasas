@@ -4,18 +4,18 @@ using DistribuicaoDeCasas.Dominio.Entidades;
 
 namespace DistribuicaoDeCasas.DominioTeste._Builders
 {
-    public class PretendenteComMenosDe30AnosBuilder
+    public class PretendenteComMenosDe30AnosBuilder : BuilderBase
     {
         private static int IdadeExcedente = 30;
-        private string Nome { get; set; }
-        private DateTime DataDeNascimento { get; set; }
+        private string Nome;
+        private DateTime DataDeNascimento;
+        private decimal Renda;
 
         private PretendenteComMenosDe30AnosBuilder()
         {
-            var faker = new Faker();
-
             Nome = faker.Person.FullName;
             DataDeNascimento = faker.Date.Between(DateTime.Today.AddYears(IdadeExcedente * -1).AddDays(1), DateTime.Today);
+            Renda = faker.Random.Decimal(0M, 2000M);
         }
 
         public static PretendenteComMenosDe30AnosBuilder Instancia() {
@@ -34,9 +34,15 @@ namespace DistribuicaoDeCasas.DominioTeste._Builders
             return this;
         }
 
+        public PretendenteComMenosDe30AnosBuilder ComRenda(decimal renda)
+        {
+            Renda = renda;
+            return this;
+        }
+
         public PretendenteComMenosDe30Anos Construir()
         {
-            return new PretendenteComMenosDe30Anos(Nome, DataDeNascimento);
+            return new PretendenteComMenosDe30Anos(Nome, DataDeNascimento, Renda);
         }
     }
 }

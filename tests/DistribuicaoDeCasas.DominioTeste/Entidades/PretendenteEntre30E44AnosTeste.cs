@@ -6,6 +6,7 @@ using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Builders;
 using DistribuicaoDeCasas.DominioTeste._Util;
+using ExpectedObjects;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
@@ -24,21 +25,25 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         [Fact]
         public void Deve_criar_um_pretendente()
         {
-            var dataEntre30E44AnosAtras = faker.Date.Between(DateTime.Today.AddYears(IdadeExcedente * -1).AddDays(1), DateTime.Today.AddYears(IdadeMinima * -1));
+            var dataEntre30E44AnosAtras = faker.Date.Between(
+                DateTime.Today.SubtrairAnos(IdadeExcedente).AddDays(1), 
+                DateTime.Today.SubtrairAnos(IdadeMinima)
+            );
         
-            var pretendente = new {
+            var pretendenteEsperado = new {
                 Nome = faker.Person.FullName,
                 DataDeNascimento = dataEntre30E44AnosAtras,
+                Renda = faker.Random.Decimal(0M, 2000M),
             };
 
             var novoPretendente = PretendenteEntre30E44AnosBuilder
                 .Instancia()
-                .ComNome(pretendente.Nome)
-                .ComDataDeNascimento(pretendente.DataDeNascimento)
+                .ComNome(pretendenteEsperado.Nome)
+                .ComDataDeNascimento(pretendenteEsperado.DataDeNascimento)
+                .ComRenda(pretendenteEsperado.Renda)
                 .Construir();
            
-            Assert.Equal(pretendente.Nome, novoPretendente.Nome);
-            Assert.Equal(pretendente.DataDeNascimento, novoPretendente.DataDeNascimento);
+            pretendenteEsperado.ToExpectedObject().ShouldMatch(novoPretendente);
         }
 
         [Fact]
@@ -87,7 +92,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         {
             var novoPretendente = PretendenteEntre30E44AnosBuilder.Instancia().Construir(); 
 
-            Assert.True(novoPretendente is Criterio);
+            Assert.True(novoPretendente is ICriterio);
         }
 
         [Fact]

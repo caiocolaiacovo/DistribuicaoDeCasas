@@ -1,6 +1,6 @@
 namespace DistribuicaoDeCasas.Dominio.Contratos
 {
-    public interface Criterio
+    public interface ICriterio
     {
         int ObterPontuacao();
     }

@@ -9,6 +9,7 @@ namespace DistribuicaoDeCasas.DominioTeste._Builders
         private static int IdadeMinima = 45;
         private string Nome;
         private DateTime DataDeNascimento;
+        private decimal Renda;
 
         public static PretendenteCom45AnosOuMaisBuilder Instancia()
         {
@@ -19,6 +20,7 @@ namespace DistribuicaoDeCasas.DominioTeste._Builders
         {
             Nome = faker.Person.FullName;
             DataDeNascimento = DateTime.Today.AddYears(IdadeMinima * -1);
+            Renda = faker.Random.Decimal(0M, 2000M);
         }
 
         public PretendenteCom45AnosOuMaisBuilder ComNome(string nome)
@@ -33,9 +35,15 @@ namespace DistribuicaoDeCasas.DominioTeste._Builders
             return this;
         }
 
+        public PretendenteCom45AnosOuMaisBuilder ComRenda(decimal renda)
+        {
+            Renda = renda;
+            return this;
+        }
+
         public PretendenteCom45AnosOuMais Construir()
         {
-            return new PretendenteCom45AnosOuMais(Nome, DataDeNascimento);
+            return new PretendenteCom45AnosOuMais(Nome, DataDeNascimento, Renda);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using DistribuicaoDeCasas.Dominio.Fabricas;
 using DistribuicaoDeCasas.DominioTeste._Base;
+using DistribuicaoDeCasas.DominioTeste._Util;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Fabricas
@@ -19,7 +20,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Fabricas
         [Fact]
         public void Deve_criar_uma_fabrica_de_pretendentes_com_menos_de_30_anos()
         {
-            var dataDeNascimento = DateTime.Today.AddYears(IdadeMinima * -1).AddDays(1);
+            var dataDeNascimento = DateTime.Today.SubtrairAnos(IdadeMinima).AddDays(1);
             var fabrica = PretendenteFactory.ObterFabrica(dataDeNascimento);
 
             Assert.True(fabrica is PretendenteComMenosDe30AnosFactory);
@@ -28,7 +29,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Fabricas
         [Fact]
         public void Deve_criar_uma_fabrica_de_pretendentes_com_30_anos()
         {
-            var dataDeNascimento = DateTime.Today.AddYears(IdadeMinima * -1);
+            var dataDeNascimento = DateTime.Today.SubtrairAnos(IdadeMinima);
             var fabrica = PretendenteFactory.ObterFabrica(dataDeNascimento);
 
             Assert.True(fabrica is PretendenteEntre30E44AnosFactory);
@@ -37,7 +38,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Fabricas
         [Fact]
         public void Deve_criar_uma_fabrica_de_pretendentes_com_44_anos_ou_menos()
         {
-            var dataDeNascimento = DateTime.Today.AddYears(IdadeExcedente * -1).AddDays(1);
+            var dataDeNascimento = DateTime.Today.SubtrairAnos(IdadeExcedente).AddDays(1);
             var fabrica = PretendenteFactory.ObterFabrica(dataDeNascimento);
 
             Assert.True(fabrica is PretendenteEntre30E44AnosFactory);
@@ -46,7 +47,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Fabricas
         [Fact]
         public void Deve_criar_uma_fabrica_de_pretendentes_com_45_anos()
         {
-            var dataDeNascimento = DateTime.Today.AddYears(IdadeExcedente * -1);
+            var dataDeNascimento = DateTime.Today.SubtrairAnos(IdadeExcedente);
             var fabrica = PretendenteFactory.ObterFabrica(dataDeNascimento);
 
             Assert.True(fabrica is PretendenteCom45AnosOuMaisFactory);
@@ -55,7 +56,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Fabricas
         [Fact]
         public void Deve_criar_uma_fabrica_de_pretendentes_com_mais_de_45_anos()
         {
-            var dataDeNascimento = DateTime.Today.AddYears(IdadeExcedente * -1).AddDays(-1);
+            var dataDeNascimento = DateTime.Today.SubtrairAnos(IdadeExcedente).SubtrairDias(1);
             var fabrica = PretendenteFactory.ObterFabrica(dataDeNascimento);
 
             Assert.True(fabrica is PretendenteCom45AnosOuMaisFactory);

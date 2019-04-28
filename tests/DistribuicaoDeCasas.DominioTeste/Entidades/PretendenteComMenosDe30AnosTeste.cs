@@ -6,6 +6,7 @@ using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Builders;
 using DistribuicaoDeCasas.DominioTeste._Util;
+using ExpectedObjects;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
@@ -16,26 +17,27 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
         public PretendenteComMenosDe30AnosTeste()
         {
-            var idadeExcedente = 30 * -1;
-            UltimaDataPermitida = DateTime.Today.AddYears(idadeExcedente).AddDays(1);
+            var idadeExcedente = 30;
+            UltimaDataPermitida = DateTime.Today.SubtrairAnos(idadeExcedente).AddDays(1);
         }
 
         [Fact]
         public void Deve_criar_um_pretendente()
         {
-            var pretendente = new {
+            var pretendenteEsperado = new {
                 Nome = faker.Person.FullName,
                 DataDeNascimento = UltimaDataPermitida,
+                Renda = faker.Random.Decimal(0M, 2000M),
             };
 
             var novoPretendente = PretendenteComMenosDe30AnosBuilder
                 .Instancia()
-                .ComNome(pretendente.Nome)
-                .ComDataDeNascimento(pretendente.DataDeNascimento)
+                .ComNome(pretendenteEsperado.Nome)
+                .ComDataDeNascimento(pretendenteEsperado.DataDeNascimento)
+                .ComRenda(pretendenteEsperado.Renda)
                 .Construir();
            
-            Assert.Equal(pretendente.Nome, novoPretendente.Nome);
-            Assert.Equal(pretendente.DataDeNascimento, novoPretendente.DataDeNascimento);
+            pretendenteEsperado.ToExpectedObject().ShouldMatch(novoPretendente);
         }
 
         [Fact]
@@ -44,7 +46,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             Assert.Throws<ExcecaoDeDominio>(() => { 
                 PretendenteComMenosDe30AnosBuilder
                     .Instancia()
-                    .ComDataDeNascimento(UltimaDataPermitida.AddDays(-1))
+                    .ComDataDeNascimento(UltimaDataPermitida.SubtrairDias(1))
                     .Construir(); 
             }).ComMensagemDeErro("O pretendente deve ter no máximo 29 anos");
         }
@@ -62,10 +64,8 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         {
             var novoPretendente = PretendenteComMenosDe30AnosBuilder.Instancia().Construir();
 
-            Assert.True(novoPretendente is Criterio);
+            Assert.True(novoPretendente is ICriterio);
         }
-
-        
 
         [Fact]
         public void Deve_retornar_a_quantidade_esperada_de_pontos()

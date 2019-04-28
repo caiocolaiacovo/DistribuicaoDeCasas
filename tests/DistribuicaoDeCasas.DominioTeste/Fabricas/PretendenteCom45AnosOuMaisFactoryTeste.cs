@@ -2,6 +2,7 @@ using System;
 using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.Dominio.Fabricas;
 using DistribuicaoDeCasas.DominioTeste._Base;
+using DistribuicaoDeCasas.DominioTeste._Util;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Fabricas
@@ -20,7 +21,11 @@ namespace DistribuicaoDeCasas.DominioTeste.Fabricas
         {
             var fabrica = new PretendenteCom45AnosOuMaisFactory();
 
-            var pretendente = fabrica.ObterPretendente(faker.Person.FullName, DateTime.Today.AddYears(IdadeMinima * -1));
+            var pretendente = fabrica.ObterPretendente(
+                faker.Person.FullName, 
+                DateTime.Today.SubtrairAnos(IdadeMinima), 
+                faker.Random.Decimal(0M, 2000M)
+            );
 
             Assert.True(pretendente is PretendenteCom45AnosOuMais);
         }

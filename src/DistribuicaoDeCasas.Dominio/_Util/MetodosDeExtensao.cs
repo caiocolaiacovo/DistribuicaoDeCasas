@@ -10,5 +10,15 @@ namespace DistribuicaoDeCasas.Dominio._Util
             
             return new DateTime(intervalo.Ticks).Year - 1;
         }
+
+        public static DateTime SubtrairAnos(this DateTime data, int anos)
+        {
+            return data.AddYears(anos * -1);
+        }
+
+        public static DateTime SubtrairDias(this DateTime data, int dias)
+        {
+            return data.AddDays(dias * -1);
+        }
     }
 }

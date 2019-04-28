@@ -9,7 +9,8 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
         private const int IdadeExcedente = 45;
         private const int Pontuacao = 2;
 
-        public PretendenteEntre30E44Anos(string nome, DateTime dataDeNascimento) : base(nome, dataDeNascimento)
+        public PretendenteEntre30E44Anos(string nome, DateTime dataDeNascimento, decimal renda) 
+            : base(nome, dataDeNascimento, renda)
         {
             var idadeMinima = dataDeNascimento.AddYears(IdadeMinima);
             

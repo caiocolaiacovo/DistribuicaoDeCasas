@@ -6,6 +6,7 @@ using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Builders;
 using DistribuicaoDeCasas.DominioTeste._Util;
+using ExpectedObjects;
 using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
@@ -22,46 +23,44 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         [Fact]
         public void Deve_criar_um_pretendente()
         {
-            var pretendente = new {
+            var pretendenteEsperado = new {
                 Nome = faker.Person.FullName,
-                DataDeNascimento = DateTime.Today.AddYears(IdadeMinima * -1),
+                DataDeNascimento = DateTime.Today.SubtrairAnos(IdadeMinima),
+                Renda = faker.Random.Decimal(0M, 2000M),
             };
 
             var novoPretendente = PretendenteCom45AnosOuMaisBuilder
                     .Instancia()
-                    .ComNome(pretendente.Nome)
-                    .ComDataDeNascimento(pretendente.DataDeNascimento)
+                    .ComNome(pretendenteEsperado.Nome)
+                    .ComDataDeNascimento(pretendenteEsperado.DataDeNascimento)
+                    .ComRenda(pretendenteEsperado.Renda)
                     .Construir();
            
-            Assert.Equal(pretendente.Nome, novoPretendente.Nome);
-            Assert.Equal(pretendente.DataDeNascimento, novoPretendente.DataDeNascimento);
+            pretendenteEsperado.ToExpectedObject().ShouldMatch(novoPretendente);
         }
 
         [Fact]
         public void Deve_criar_um_pretendente_com_mais_de_45_anos()
         {
-            var pretendente = new {
-                Nome = faker.Person.FullName,
-                DataDeNascimento = DateTime.Today.AddYears(IdadeMinima * -1).AddDays(-1),
-            };
+            var dataDeNascimentoEsperada = DateTime.Today.SubtrairAnos(IdadeMinima).SubtrairDias(1);
 
             var novoPretendente = PretendenteCom45AnosOuMaisBuilder
                     .Instancia()
-                    .ComNome(pretendente.Nome)
-                    .ComDataDeNascimento(pretendente.DataDeNascimento)
+                    .ComDataDeNascimento(dataDeNascimentoEsperada)
                     .Construir();
            
-            Assert.Equal(pretendente.Nome, novoPretendente.Nome);
-            Assert.Equal(pretendente.DataDeNascimento, novoPretendente.DataDeNascimento);
+            Assert.Equal(dataDeNascimentoEsperada, novoPretendente.DataDeNascimento);
         }
 
         [Fact]
         public void Deve_falhar_ao_criar_um_pretendente_com_menos_de_45_anos()
         {
+            var dataDeNascimentoIncorreta = DateTime.Today.SubtrairAnos(IdadeMinima).AddDays(1);
+
             Assert.Throws<ExcecaoDeDominio>(() => {
                 PretendenteCom45AnosOuMaisBuilder
                     .Instancia()
-                    .ComDataDeNascimento(DateTime.Today.AddYears(IdadeMinima * -1).AddDays(1))
+                    .ComDataDeNascimento(dataDeNascimentoIncorreta)
                     .Construir();
             }).ComMensagemDeErro("O pretendente deve ter no mínimo 45 anos");
         }
@@ -79,7 +78,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         {
             var novoPretendente = PretendenteCom45AnosOuMaisBuilder.Instancia().Construir();
 
-            Assert.True(novoPretendente is Criterio);
+            Assert.True(novoPretendente is ICriterio);
         }
 
         [Fact]

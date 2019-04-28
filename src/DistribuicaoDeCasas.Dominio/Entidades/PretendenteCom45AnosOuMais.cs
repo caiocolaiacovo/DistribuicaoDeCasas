@@ -8,7 +8,8 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
         private const int IdadeMinima = 45;
         private const int Pontuacao = 3;
 
-        public PretendenteCom45AnosOuMais(string nome, DateTime dataDeNascimento) : base(nome, dataDeNascimento)
+        public PretendenteCom45AnosOuMais(string nome, DateTime dataDeNascimento, decimal renda) 
+            : base(nome, dataDeNascimento,renda)
         {
             var idadeMinima = dataDeNascimento.AddYears(IdadeMinima);
             
