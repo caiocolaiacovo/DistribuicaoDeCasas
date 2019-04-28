@@ -13,7 +13,6 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
     {
         public readonly int IdadeMinima;
         public readonly int IdadeExcedente;
-        public readonly DateTime DataEntre30E44AnosAtras;
         public readonly Faker faker;
 
         public PretendenteEntre30E44AnosTeste()
@@ -21,15 +20,16 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             faker = new Faker();
             IdadeMinima = 30;
             IdadeExcedente = 45;
-            DataEntre30E44AnosAtras = faker.Date.Between(DateTime.Today.AddYears(IdadeExcedente * -1).AddDays(1), DateTime.Today.AddYears(IdadeMinima * -1));
         }
 
         [Fact]
         public void Deve_criar_um_pretendente()
         {
+            var dataEntre30E44AnosAtras = faker.Date.Between(DateTime.Today.AddYears(IdadeExcedente * -1).AddDays(1), DateTime.Today.AddYears(IdadeMinima * -1));
+        
             var pretendente = new {
                 Nome = faker.Person.FullName,
-                DataDeNascimento = DataEntre30E44AnosAtras,
+                DataDeNascimento = dataEntre30E44AnosAtras,
             };
 
             var novoPretendente = PretendenteEntre30E44AnosBuilder
