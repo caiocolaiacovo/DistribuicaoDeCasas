@@ -203,5 +203,45 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
             Assert.Equal(pontuacaoEsperada, novaFamilia.ObterPontuacaoPorDependenteValido());
         }
+
+        [Fact]
+        public void Deve_obter_pontuacao_pela_idade_do_pretendente()
+        {
+            var pontuacaoEsperada = faker.Random.Int(0, 100);
+
+            var pretendente = new Mock<IPretendente>();
+            pretendente.Setup(p => p.ObterPontuacao()).Returns(pontuacaoEsperada);
+
+            var familiaEsperada = new {
+                Pretendente = pretendente,
+                Conjuge = new Mock<Pessoa>(MockBehavior.Default, faker.Person.FullName, DateTime.Today),
+            };
+
+            var novaFamilia = new Familia(
+                familiaEsperada.Pretendente.Object, 
+                familiaEsperada.Conjuge.Object, 
+                null    
+            );
+
+            Assert.Equal(pontuacaoEsperada, novaFamilia.ObterPontuacaoPelaIdadeDoPretendente());
+        }
+
+        // [Fact]
+        // public void Deve_obter_a_pontuacao_pela_renda_familiar()
+        // {
+        //     var rendaDoPretendente = 450M;
+        //     var rendaDoConjuge = 450M;
+
+        //     var familiaEsperada = new {
+        //         Pretendente = new Mock<Pessoa>(MockBehavior.Default, faker.Person.FullName, DateTime.Today, rendaDoPretendente),
+        //         Conjuge = new Mock<Pessoa>(MockBehavior.Default, faker.Person.FullName, DateTime.Today, rendaDoConjuge),
+        //     };
+
+        //     var novaFamilia = new Familia(
+        //         familiaEsperada.Pretendente.Object, 
+        //         familiaEsperada.Conjuge.Object, 
+        //         null    
+        //     );
+        // }
     }
 }

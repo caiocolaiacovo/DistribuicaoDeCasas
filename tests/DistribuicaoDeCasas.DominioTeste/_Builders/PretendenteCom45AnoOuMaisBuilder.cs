@@ -1,6 +1,7 @@
 using System;
 using Bogus;
 using DistribuicaoDeCasas.Dominio.Entidades;
+using DistribuicaoDeCasas.DominioTeste._Base;
 
 namespace DistribuicaoDeCasas.DominioTeste._Builders
 {

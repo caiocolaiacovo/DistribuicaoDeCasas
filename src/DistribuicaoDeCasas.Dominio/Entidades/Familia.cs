@@ -19,9 +19,7 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
                 .Instancia()
                 .Quando(pretendente == null, "Pretendente é obrigatório")
                 .Quando(conjuge == null, "Conjuge é obrigatório");
-                // .Quando(dependentes == null || dependentes.Count == 0, "Obrigatório pelo menos 1 (um) dependente");
-                // .Quando(numeroDeDependentesMenoresDeIdade == 0, "A família deve ter pelo menos 1 (um) pretendente menor de idade");
-
+            
             Pretendente = pretendente;
             Conjuge = conjuge;
             Dependentes = dependentes ?? new List<IDependente>();
@@ -50,6 +48,16 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
                 return PontuacaoPara1Ou2DependentesValidos;
 
             return PontuacaoSemDependentesValidos;
+        }
+
+        public int ObterPontuacaoPelaIdadeDoPretendente()
+        {
+            return Pretendente.ObterPontuacao();
+        }
+
+        public int ObterPontuacaoPorRendaFamiliar()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

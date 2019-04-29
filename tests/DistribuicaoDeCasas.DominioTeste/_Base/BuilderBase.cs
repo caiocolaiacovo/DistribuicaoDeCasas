@@ -1,6 +1,6 @@
 using Bogus;
 
-namespace DistribuicaoDeCasas.DominioTeste._Builders
+namespace DistribuicaoDeCasas.DominioTeste._Base
 {
     public class BuilderBase
     {
