@@ -34,8 +34,8 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
 
             foreach (var dependente in dependentes ?? new List<Pessoa>())
             {
-                if ((dependente as Dependente).EhMenorDeIdade())
-                    quantidade++;
+                // if ((dependente as DependenteMenorDeIdade).EhMenorDeIdade())
+                //     quantidade++;
             }
             return quantidade;
         }
