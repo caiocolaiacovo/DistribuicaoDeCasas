@@ -1,31 +1,28 @@
-using System.Collections.Generic;
-using DistribuicaoDeCasas.Dominio._Util;
-using DistribuicaoDeCasas.Dominio.Contratos;
+// using DistribuicaoDeCasas.Dominio._Util;
+// using DistribuicaoDeCasas.Dominio.Contratos;
 
-namespace DistribuicaoDeCasas.Dominio.Entidades
-{
-    public class FamiliaSemDependentes: ICriterio
-    {
-        private const int Pontuacao = 0;
-        public readonly Pretendente Pretendente;
-        public readonly Pessoa Conjuge;
-        public readonly List<Pessoa> Dependentes;
+// namespace DistribuicaoDeCasas.Dominio.Entidades
+// {
+//     public class FamiliaSemDependentes: IFamilia
+//     {
+//         private const int Pontuacao = 0;
+//         public readonly IPretendente Pretendente;
+//         public readonly Pessoa Conjuge;
 
-        public FamiliaSemDependentes(Pretendente pretendente, Pessoa conjuge, List<Pessoa> dependentes)
-        {
-            ValidadorDeDominio
-                .Instancia()
-                .Quando(pretendente == null, "Pretendente é obrigatório")
-                .Quando(conjuge == null, "Conjuge é obrigatório");
+//         public FamiliaSemDependentes(IPretendente pretendente, Pessoa conjuge)
+//         {
+//             ValidadorDeDominio
+//                 .Instancia()
+//                 .Quando(pretendente == null, "Pretendente é obrigatório")
+//                 .Quando(conjuge == null, "Conjuge é obrigatório");
 
-            Pretendente = pretendente;
-            Conjuge = conjuge;
-            Dependentes = dependentes ?? new List<Pessoa>();
-        }
+//             Pretendente = pretendente;
+//             Conjuge = conjuge;
+//         }
 
-        public int ObterPontuacao()
-        {
-            return Pontuacao;
-        }
-    }
-}
+//         public int ObterPontuacaoPorDependente()
+//         {
+//             return Pontuacao;
+//         }
+//     }
+// }
