@@ -4,9 +4,10 @@ using DistribuicaoDeCasas.Dominio.Contratos;
 
 namespace DistribuicaoDeCasas.Dominio.Entidades
 {
-    public abstract class Pretendente : Pessoa, ICriterio
+    public abstract class Pretendente : Pessoa
     {
-        public Pretendente(string nome, DateTime dataDeNascimento, decimal renda) : base(nome, dataDeNascimento) 
+        public Pretendente(string nome, DateTime dataDeNascimento, decimal renda) 
+            : base(nome, dataDeNascimento) 
         { 
             ValidadorDeDominio
                 .Instancia()
@@ -14,7 +15,5 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
 
             Renda = renda;
         }
-
-        public abstract int ObterPontuacao();
     }
 }

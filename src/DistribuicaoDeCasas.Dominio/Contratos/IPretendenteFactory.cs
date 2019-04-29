@@ -5,6 +5,6 @@ namespace DistribuicaoDeCasas.Dominio.Contratos
 {
     public interface IPretendenteFactory
     {
-         Pretendente ObterPretendente(string nome, DateTime dataDeNascimento, decimal renda);
+         IPretendente ObterPretendente(string nome, DateTime dataDeNascimento, decimal renda);
     }
 }

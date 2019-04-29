@@ -9,14 +9,14 @@ using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
 {
-    public class PessoaTeste : TesteBase
+    public class PessoaAbstrataTeste : TesteBase
     {
-        class PessoaTestavel : Pessoa
+        class PessoaAbstrata : Pessoa
         {
-            public PessoaTestavel(string nome, DateTime dataDeNascimento) : base(nome, dataDeNascimento){}
+            public PessoaAbstrata(string nome, DateTime dataDeNascimento) : base(nome, dataDeNascimento){}
         }
 
-        public PessoaTeste()
+        public PessoaAbstrataTeste()
         {
         }
 
@@ -28,7 +28,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
                 DataDeNascimento = DateTime.Today,
             };
 
-            var novaPessoa = new PessoaTestavel(pessoa.Nome, pessoa.DataDeNascimento);
+            var novaPessoa = new PessoaAbstrata(pessoa.Nome, pessoa.DataDeNascimento);
 
             pessoa.ToExpectedObject().ShouldMatch(novaPessoa);
         }
@@ -42,7 +42,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             var dataDeNascimento = DateTime.Today;
 
             Assert.Throws<ExcecaoDeDominio>(() => {
-                new PessoaTestavel(nomeInvalido, dataDeNascimento);
+                new PessoaAbstrata(nomeInvalido, dataDeNascimento);
             }).ComMensagemDeErro("Nome obrigatório");
         }
 
@@ -53,7 +53,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             var dataFutura = faker.Date.Future();
 
             Assert.Throws<ExcecaoDeDominio>(() => {
-                new PessoaTestavel(nome, dataFutura);
+                new PessoaAbstrata(nome, dataFutura);
             }).ComMensagemDeErro("Data de nascimento não pode ser maior que a data atual");
         }
     }   

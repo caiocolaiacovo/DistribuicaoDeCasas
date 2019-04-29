@@ -74,6 +74,14 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         }
 
         [Fact]
+        public void Deve_implementar_IPretendente()
+        {
+            var novoPretendente = PretendenteCom45AnosOuMaisBuilder.Instancia().Construir();
+
+            Assert.True(novoPretendente is IPretendente);
+        }
+
+        [Fact]
         public void Deve_obter_a_pontuacao_esperada()
         {
             var pontuacaoEsperada = 3;

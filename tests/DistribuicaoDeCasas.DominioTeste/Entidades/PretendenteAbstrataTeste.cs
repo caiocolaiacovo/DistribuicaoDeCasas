@@ -1,6 +1,5 @@
 using System;
 using DistribuicaoDeCasas.Dominio._Excecoes;
-using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.DominioTeste._Base;
 using DistribuicaoDeCasas.DominioTeste._Util;
@@ -9,19 +8,14 @@ using Xunit;
 
 namespace DistribuicaoDeCasas.DominioTeste.Entidades
 {
-    public class PretendenteTeste : TesteBase
+    public class PretendenteAbstrataTeste : TesteBase
     {
-        public PretendenteTeste() { }
+        public PretendenteAbstrataTeste() { }
 
-        class PretendenteTestavel : Pretendente
+        class PretendenteAbstrata : Pretendente
         {
-            public PretendenteTestavel(string nome, DateTime dataDeNascimento, decimal renda) 
+            public PretendenteAbstrata(string nome, DateTime dataDeNascimento, decimal renda) 
                 : base(nome, dataDeNascimento, renda){}
-
-            public override int ObterPontuacao()
-            {
-                throw new System.NotImplementedException();
-            }
         }
 
         [Fact]
@@ -33,7 +27,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
                 Renda = faker.Random.Decimal(0M, 2000M),
             };
 
-            var novoPretendente = new PretendenteTestavel(
+            var novoPretendente = new PretendenteAbstrata(
                 pretendenteEsperado.Nome, 
                 pretendenteEsperado.DataDeNascimento, 
                 pretendenteEsperado.Renda
@@ -45,7 +39,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         [Fact]
         public void Deve_ser_uma_instancia_de_Pessoa()
         {
-            var novoPretendente = new PretendenteTestavel(
+            var novoPretendente = new PretendenteAbstrata(
                 faker.Person.FullName, 
                 DateTime.Today, 
                 faker.Random.Decimal(0M, 2000M)
@@ -55,24 +49,12 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         }
 
         [Fact]
-        public void Deve_ser_um_ICriterio()
-        {
-            var novoPretendente = new PretendenteTestavel(
-                faker.Person.FullName, 
-                DateTime.Today, 
-                faker.Random.Decimal(0M, 2000M)
-            );
-
-            Assert.True(novoPretendente is ICriterio);
-        }
-
-        [Fact]
         public void Deve_falhar_ao_criar_uma_pessoa_com_renda_negativa()
         {
             var rendaInvalida = -1M;
 
             Assert.Throws<ExcecaoDeDominio>(() => {
-                new PretendenteTestavel(faker.Person.FullName, DateTime.Today, rendaInvalida);
+                new PretendenteAbstrata(faker.Person.FullName, DateTime.Today, rendaInvalida);
             }).ComMensagemDeErro("A renda não pode ser negativa");
         }
     }

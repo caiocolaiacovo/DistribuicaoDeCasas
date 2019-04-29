@@ -1,5 +1,4 @@
 using System;
-using Bogus;
 using DistribuicaoDeCasas.Dominio._Excecoes;
 using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
@@ -57,6 +56,14 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             var novoPretendente = PretendenteComMenosDe30AnosBuilder.Instancia().Construir();
 
             Assert.True(novoPretendente is Pretendente);
+        }
+
+        [Fact]
+        public void Deve_implementar_IPretendente()
+        {
+            var novoPretendente = PretendenteComMenosDe30AnosBuilder.Instancia().Construir();
+
+            Assert.True(novoPretendente is IPretendente);
         }
 
         [Fact]

@@ -20,6 +20,6 @@ namespace DistribuicaoDeCasas.Dominio.Fabricas
             return new PretendenteCom45AnosOuMaisFactory();
         }
 
-        public abstract Pretendente ObterPretendente(string nome, DateTime dataDeNascimento, decimal renda);
+        public abstract IPretendente ObterPretendente(string nome, DateTime dataDeNascimento, decimal renda);
     }
 }

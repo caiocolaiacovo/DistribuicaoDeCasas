@@ -5,7 +5,7 @@ using DistribuicaoDeCasas.Dominio.Contratos;
 
 namespace DistribuicaoDeCasas.Dominio.Entidades
 {
-    public class PretendenteComMenosDe30Anos : Pretendente
+    public class PretendenteComMenosDe30Anos : Pretendente, IPretendente
     {
         private const int IdadeExcedente = 30;
         private const int Pontuacao = 1;
@@ -20,7 +20,7 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
                 .Quando(idade >= IdadeExcedente, "O pretendente deve ter no máximo 29 anos");
         }
 
-        public override int ObterPontuacao()
+        public int ObterPontuacao()
         {
             return Pontuacao;
         }

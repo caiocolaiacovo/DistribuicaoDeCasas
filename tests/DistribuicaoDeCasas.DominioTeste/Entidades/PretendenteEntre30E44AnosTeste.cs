@@ -1,5 +1,4 @@
 using System;
-using Bogus;
 using DistribuicaoDeCasas.Dominio._Excecoes;
 using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
@@ -52,7 +51,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             Assert.Throws<ExcecaoDeDominio>(() => {
                 PretendenteEntre30E44AnosBuilder
                     .Instancia()
-                    .ComDataDeNascimento(DateTime.Today.AddYears(IdadeMinima * -1).AddDays(1))
+                    .ComDataDeNascimento(DateTime.Today.SubtrairAnos(IdadeMinima).AddDays(1))
                     .Construir();
             }).ComMensagemDeErro("O pretendente deve ter no mínimo 30 anos");
         }
@@ -63,7 +62,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             Assert.Throws<ExcecaoDeDominio>(() => {
                 PretendenteEntre30E44AnosBuilder
                     .Instancia()
-                    .ComDataDeNascimento(DateTime.Today.AddYears(IdadeExcedente * -1))
+                    .ComDataDeNascimento(DateTime.Today.SubtrairAnos(IdadeExcedente))
                     .Construir();
             }).ComMensagemDeErro("O pretendente deve ter no máximo 44 anos");
         }
@@ -74,9 +73,17 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             Assert.Throws<ExcecaoDeDominio>(() => {
                 PretendenteEntre30E44AnosBuilder
                     .Instancia()
-                    .ComDataDeNascimento(DateTime.Today.AddYears(IdadeExcedente * -1).AddDays(-1))
+                    .ComDataDeNascimento(DateTime.Today.SubtrairAnos(IdadeExcedente).SubtrairDias(1))
                     .Construir();
             }).ComMensagemDeErro("O pretendente deve ter no máximo 44 anos");
+        }
+
+        [Fact]
+        public void Deve_implementar_IPretendente()
+        {
+            var novoPretendente = PretendenteEntre30E44AnosBuilder.Instancia().Construir(); 
+
+            Assert.True(novoPretendente is IPretendente);
         }
 
         [Fact]

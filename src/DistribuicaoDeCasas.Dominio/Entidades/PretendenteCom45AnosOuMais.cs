@@ -1,10 +1,11 @@
 using System;
 using DistribuicaoDeCasas.Dominio._Excecoes;
 using DistribuicaoDeCasas.Dominio._Util;
+using DistribuicaoDeCasas.Dominio.Contratos;
 
 namespace DistribuicaoDeCasas.Dominio.Entidades
 {
-    public class PretendenteCom45AnosOuMais : Pretendente
+    public class PretendenteCom45AnosOuMais : Pretendente, IPretendente
     {
         private const int IdadeMinima = 45;
         private const int Pontuacao = 3;
@@ -19,7 +20,7 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
                 .Quando(idade < IdadeMinima, "O pretendente deve ter no mínimo 45 anos");
         }
 
-        public override int ObterPontuacao()
+        public int ObterPontuacao()
         {
             return Pontuacao;
         }
