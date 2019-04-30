@@ -88,7 +88,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
                 null
             );
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependenteValido());
+            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependenteValido());
+            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependenteValido());
+            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
         }
 
         [Fact]
@@ -127,7 +127,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependenteValido());
+            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependenteValido());
+            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
         }
 
         [Fact]
@@ -156,7 +156,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependenteValido());
+            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
         }
 
         public static IEnumerable<object[]> RendaDosConjugesAte900Reais =>

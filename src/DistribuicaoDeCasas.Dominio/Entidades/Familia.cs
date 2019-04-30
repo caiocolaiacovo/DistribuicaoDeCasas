@@ -14,9 +14,14 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
         private const int PontuacaoParaRendaEntre901E1500Reais = 3;
         private const int PontuacaoParaRendaEntre1501E2000Reais = 1;
         private const int PontuacaoParaRendaSuperiorA2000Reais = 0;
-        public readonly IPretendente Pretendente;
-        public readonly IConjuge Conjuge;
-        public readonly List<IDependente> Dependentes;
+
+        private readonly IPretendente _Pretendente;
+        private readonly IConjuge _Conjuge;
+        private readonly List<IDependente> _Dependentes;
+
+        public IPretendente Pretendente => _Pretendente;
+        public IConjuge Conjuge => _Conjuge;
+        public List<IDependente> Dependentes => _Dependentes;
 
         public Familia(IPretendente pretendente, IConjuge conjuge, List<IDependente> dependentes)
         {
@@ -25,9 +30,9 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
                 .Quando(pretendente == null, "Pretendente é obrigatório")
                 .Quando(conjuge == null, "Conjuge é obrigatório");
             
-            Pretendente = pretendente;
-            Conjuge = conjuge;
-            Dependentes = dependentes ?? new List<IDependente>();
+            _Pretendente = pretendente;
+            _Conjuge = conjuge;
+            _Dependentes = dependentes ?? new List<IDependente>();
         }
 
         private int NumeroDeDependentesValidos()
@@ -39,10 +44,11 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
                 if (!dependente.EhMaiorDeIdade())
                     quantidade++;
             }
+            
             return quantidade;
         }
 
-        public int ObterPontuacaoPorQuantidadeDeDependenteValido()
+        public int ObterPontuacaoPorQuantidadeDeDependentesValidos()
         {
             var quantidade = NumeroDeDependentesValidos();
 
