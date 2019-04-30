@@ -1,9 +1,6 @@
-using System;
 using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.DominioTeste._Base;
-using DistribuicaoDeCasas.DominioTeste._Builders;
-using ExpectedObjects;
 using Moq;
 using Xunit;
 
@@ -85,24 +82,6 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             var pontuador = new CalculadoraDePontos();
 
             Assert.Equal(pontuacaoEsperada, pontuador.Calcular(familia.Object));
-        }
-    }
-
-    internal class CalculadoraDePontos
-    {
-        public CalculadoraDePontos() { }
-
-        internal int Calcular(IFamilia familia)
-        {
-            var pretendente = familia.Pretendente;
-            
-            var total = 0;
-
-            total += pretendente.ObterPontuacaoPorIdade();
-            total += familia.ObterPontuacaoPorRendaFamiliar();
-            total += familia.ObterPontuacaoPorQuantidadeDeDependentesValidos();
-
-            return total;
         }
     }
 }
