@@ -4,7 +4,7 @@ using DistribuicaoDeCasas.Dominio.Contratos;
 
 namespace DistribuicaoDeCasas.Dominio.Entidades
 {
-    public class Conjuge : Pessoa
+    public class Conjuge : Pessoa, IConjuge
     {
         public Conjuge(string nome, DateTime dataDeNascimento, decimal renda) : base(nome, dataDeNascimento)
         {

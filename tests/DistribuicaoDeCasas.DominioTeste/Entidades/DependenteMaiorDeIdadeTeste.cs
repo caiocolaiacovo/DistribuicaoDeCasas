@@ -11,12 +11,21 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 {
     public class DependenteMaiorDeIdadeTeste : TesteBase
     {
+        public string Nome;
+        public DateTime DataDeNascimento;
+
+        public DependenteMaiorDeIdadeTeste()
+        {
+            Nome = faker.Person.FullName;
+            DataDeNascimento = DateTime.Today.SubtrairAnos(18);
+        }
+
         [Fact]
         public void Deve_criar_um_dependente()
         {
             var dependenteEsperado = new {
-                Nome = faker.Person.FullName,
-                DataDeNascimento = DateTime.Today.SubtrairAnos(18),
+                Nome = Nome,
+                DataDeNascimento = DataDeNascimento,
             };
 
             var novoDependente = new DependenteMaiorDeIdade(dependenteEsperado.Nome, dependenteEsperado.DataDeNascimento);
@@ -27,37 +36,35 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         [Fact]
         public void Deve_falhar_ao_criar_dependente_com_menos_de_18_anos()
         {
-            var dataDeNascimentoDe17Anos = DateTime.Today.SubtrairAnos(18).AddDays(1);
+            var dataDeNascimentoInvalida = DateTime.Today.SubtrairAnos(18).AddDays(1);
 
             Assert.Throws<ExcecaoDeDominio>(() => {
-                new DependenteMaiorDeIdade(faker.Person.FullName, dataDeNascimentoDe17Anos);
+                new DependenteMaiorDeIdade(Nome, dataDeNascimentoInvalida);
             }).ComMensagemDeErro("O dependente precisa ter 18 anos ou mais");
         }
 
         [Fact]
         public void Deve_ser_uma_Pessoa()
         {
-            var dependenteEsperado = new {
-                Nome = faker.Person.FullName,
-                DataDeNascimento = DateTime.Today.SubtrairAnos(18),
-            };
+            var dependente = new DependenteMaiorDeIdade(Nome, DataDeNascimento);
 
-            var novoDependente = new DependenteMaiorDeIdade(dependenteEsperado.Nome, dependenteEsperado.DataDeNascimento);
-
-            Assert.True(novoDependente is Pessoa);
+            Assert.True(dependente is Pessoa);
         }
 
         [Fact]
         public void Deve_implementar_IDependente()
         {
-            var dependenteEsperado = new {
-                Nome = faker.Person.FullName,
-                DataDeNascimento = DateTime.Today.SubtrairAnos(18),
-            };
+            var dependente = new DependenteMaiorDeIdade(Nome, DataDeNascimento);
 
-            var novoDependente = new DependenteMaiorDeIdade(dependenteEsperado.Nome, dependenteEsperado.DataDeNascimento);
+            Assert.True(dependente is IDependente);
+        }
 
-            Assert.True(novoDependente is IDependente);
+        [Fact]
+        public void Deve_ser_um_dependente_maior_de_idade()
+        {
+            var dependente = new DependenteMaiorDeIdade(Nome, DataDeNascimento);
+
+            Assert.True(dependente.EhMaiorDeIdade());
         }
     }
 }

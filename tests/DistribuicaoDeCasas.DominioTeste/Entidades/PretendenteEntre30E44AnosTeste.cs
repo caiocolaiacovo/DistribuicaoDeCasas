@@ -101,7 +101,7 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
 
             var novoPretendente = PretendenteEntre30E44AnosBuilder.Instancia().Construir(); 
 
-            Assert.Equal(pontuacaoEsperada, novoPretendente.ObterPontuacao());
+            Assert.Equal(pontuacaoEsperada, novoPretendente.ObterPontuacaoPorIdade());
         }
     }
 

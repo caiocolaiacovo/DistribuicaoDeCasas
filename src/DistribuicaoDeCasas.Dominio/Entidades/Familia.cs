@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DistribuicaoDeCasas.Dominio._Util;
 using DistribuicaoDeCasas.Dominio.Contratos;
@@ -9,11 +10,15 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
         private const int PontuacaoSemDependentesValidos = 0;
         private const int PontuacaoPara1Ou2DependentesValidos = 2;
         private const int PontuacaoPara3OuMaisDependentesValidos = 3;
+        private const int PontuacaoParaRendaDeAte900Reais = 5;
+        private const int PontuacaoParaRendaEntre901E1500Reais = 3;
+        private const int PontuacaoParaRendaEntre1501E2000Reais = 1;
+        private const int PontuacaoParaRendaSuperiorA2000Reais = 0;
         public readonly IPretendente Pretendente;
-        public readonly Pessoa Conjuge;
+        public readonly IConjuge Conjuge;
         public readonly List<IDependente> Dependentes;
 
-        public Familia(IPretendente pretendente, Pessoa conjuge, List<IDependente> dependentes)
+        public Familia(IPretendente pretendente, IConjuge conjuge, List<IDependente> dependentes)
         {
             ValidadorDeDominio
                 .Instancia()
@@ -37,7 +42,7 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
             return quantidade;
         }
 
-        public int ObterPontuacaoPorDependenteValido()
+        public int ObterPontuacaoPorQuantidadeDeDependenteValido()
         {
             var quantidade = NumeroDeDependentesValidos();
 
@@ -50,14 +55,28 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
             return PontuacaoSemDependentesValidos;
         }
 
-        public int ObterPontuacaoPelaIdadeDoPretendente()
-        {
-            return Pretendente.ObterPontuacao();
-        }
-
         public int ObterPontuacaoPorRendaFamiliar()
         {
-            throw new System.NotImplementedException();
+            var totalDaRenda = ObterRendas();
+
+            if (totalDaRenda <= 900M)
+                return PontuacaoParaRendaDeAte900Reais;
+
+            if (totalDaRenda >= 901M && totalDaRenda <= 1500)
+                return PontuacaoParaRendaEntre901E1500Reais;
+
+            if (totalDaRenda >= 1501M && totalDaRenda <= 2000)
+                return PontuacaoParaRendaEntre1501E2000Reais;
+
+            return PontuacaoParaRendaSuperiorA2000Reais;
+        }
+
+        private decimal ObterRendas()
+        {
+            var rendaPretendente = Pretendente.Renda;
+            var rendaConjuge = Conjuge.Renda;
+
+            return rendaPretendente + rendaConjuge;
         }
     }
 }

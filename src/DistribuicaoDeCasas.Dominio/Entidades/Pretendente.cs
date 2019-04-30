@@ -4,7 +4,7 @@ using DistribuicaoDeCasas.Dominio.Contratos;
 
 namespace DistribuicaoDeCasas.Dominio.Entidades
 {
-    public abstract class Pretendente : Pessoa
+    public abstract class Pretendente : Pessoa, IPretendente
     {
         public Pretendente(string nome, DateTime dataDeNascimento, decimal renda) 
             : base(nome, dataDeNascimento) 
@@ -15,5 +15,7 @@ namespace DistribuicaoDeCasas.Dominio.Entidades
 
             Renda = renda;
         }
+
+        public abstract int ObterPontuacaoPorIdade();
     }
 }

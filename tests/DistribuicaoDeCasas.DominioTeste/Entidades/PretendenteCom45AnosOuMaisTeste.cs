@@ -82,13 +82,13 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         }
 
         [Fact]
-        public void Deve_obter_a_pontuacao_esperada()
+        public void Deve_obter_a_pontuacao_esperada_pela_idade()
         {
             var pontuacaoEsperada = 3;
 
             var novoPretendente = PretendenteCom45AnosOuMaisBuilder.Instancia().Construir();
 
-            Assert.Equal(pontuacaoEsperada, novoPretendente.ObterPontuacao());
+            Assert.Equal(pontuacaoEsperada, novoPretendente.ObterPontuacaoPorIdade());
         }
     }   
 }

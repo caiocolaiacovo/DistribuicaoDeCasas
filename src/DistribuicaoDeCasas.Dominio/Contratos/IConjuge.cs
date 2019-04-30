@@ -1,8 +1,7 @@
 namespace DistribuicaoDeCasas.Dominio.Contratos
 {
-    public interface IPretendente
+    public interface IConjuge
     {
         decimal Renda { get; }
-        int ObterPontuacaoPorIdade();
     }
 }

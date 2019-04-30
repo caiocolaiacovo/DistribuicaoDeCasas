@@ -16,6 +16,11 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         {
             public PretendenteAbstrata(string nome, DateTime dataDeNascimento, decimal renda) 
                 : base(nome, dataDeNascimento, renda){}
+
+            public override int ObterPontuacaoPorIdade()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         [Fact]
