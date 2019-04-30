@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DistribuicaoDeCasas.Dominio.Contratos;
 using DistribuicaoDeCasas.Dominio.Entidades;
 using DistribuicaoDeCasas.DominioTeste._Base;
@@ -82,6 +83,38 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             var pontuador = new CalculadoraDePontos();
 
             Assert.Equal(pontuacaoEsperada, pontuador.Calcular(familia.Object));
+        }
+
+        public static IEnumerable<object[]> CriteriosAtendidos =>
+            new List<object[]>
+            {
+                new object[] { 0, 0, 0, 0 },
+                new object[] { 1, 0, 0, 1 },
+                new object[] { 1, 1, 0, 2 },
+                new object[] { 1, 1, 1, 3 },
+            };
+
+        [Theory]
+        [MemberData(nameof(CriteriosAtendidos))]
+        public void Deve_atender_a_quantidade_correta_de_criterios(
+            int pontuacaoCriterioPretendente,
+            int pontuacaoCriterioRendaFamiliar,
+            int pontuacaoCriterioQuantidadeDeDependentes,
+            int quantidadeEsperadaDeCriteriosAtendidos
+        )
+        {
+            var pretendente = new Mock<IPretendente>();
+            pretendente.Setup(p => p.ObterPontuacaoPorIdade()).Returns(pontuacaoCriterioPretendente);
+
+            var familia = new Mock<IFamilia>();
+            familia.Setup(f => f.Pretendente).Returns(pretendente.Object);
+            familia.Setup(f => f.ObterPontuacaoPorRendaFamiliar()).Returns(pontuacaoCriterioRendaFamiliar);
+            familia.Setup(f => f.ObterPontuacaoPorQuantidadeDeDependentesValidos()).Returns(pontuacaoCriterioQuantidadeDeDependentes);
+
+            var pontuador = new CalculadoraDePontos();
+            pontuador.Calcular(familia.Object);
+
+            Assert.Equal(quantidadeEsperadaDeCriteriosAtendidos, pontuador.QuantidadeDeCriteriosAtendidos);
         }
     }
 }
