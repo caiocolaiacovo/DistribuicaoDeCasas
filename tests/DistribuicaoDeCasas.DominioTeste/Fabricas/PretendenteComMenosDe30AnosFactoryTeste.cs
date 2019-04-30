@@ -24,7 +24,6 @@ namespace DistribuicaoDeCasas.DominioTeste.Fabricas
                 DateTime.Today.SubtrairAnos(IdadeExcedente).AddDays(1), 
                 DateTime.Today
             );
-
             var pretendente = fabrica.ObterPretendente(
                 faker.Person.FullName, 
                 dataDeNascimento, 

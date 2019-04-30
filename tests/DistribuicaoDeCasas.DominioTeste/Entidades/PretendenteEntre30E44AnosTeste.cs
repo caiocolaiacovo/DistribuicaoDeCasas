@@ -28,13 +28,11 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
                 DateTime.Today.SubtrairAnos(IdadeExcedente).AddDays(1), 
                 DateTime.Today.SubtrairAnos(IdadeMinima)
             );
-        
             var pretendenteEsperado = new {
                 Nome = faker.Person.FullName,
                 DataDeNascimento = dataEntre30E44AnosAtras,
                 Renda = faker.Random.Decimal(0M, 2000M),
             };
-
             var novoPretendente = PretendenteEntre30E44AnosBuilder
                 .Instancia()
                 .ComNome(pretendenteEsperado.Nome)
@@ -98,10 +96,11 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_obter_a_pontuacao_esperada()
         {
             var pontuacaoEsperada = 2;
-
             var novoPretendente = PretendenteEntre30E44AnosBuilder.Instancia().Construir(); 
 
-            Assert.Equal(pontuacaoEsperada, novoPretendente.ObterPontuacaoPorIdade());
+            var pontuacaoEncontrada = novoPretendente.ObterPontuacaoPorIdade();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
     }
 

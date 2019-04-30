@@ -13,10 +13,8 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_calcular_a_pontuacao_da_familia_pela_idade_do_pretendente()
         {
             var pontuacaoEsperada = faker.Random.Int(0, 100);
-
             var pretendente = new Mock<IPretendente>();
             pretendente.Setup(p => p.ObterPontuacaoPorIdade()).Returns(pontuacaoEsperada);
-            
             var familia = new Mock<IFamilia>();
             familia.Setup(f => f.Pretendente).Returns(pretendente.Object);
 
@@ -29,10 +27,8 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_calcular_a_pontuacao_da_familia_pela_renda_total()
         {
             var pontuacaoEsperada = faker.Random.Int(0, 100);
-
             var pretendente = new Mock<IPretendente>();
             pretendente.Setup(p => p.ObterPontuacaoPorIdade()).Returns(0);
-
             var familia = new Mock<IFamilia>();
             familia.Setup(f => f.Pretendente).Returns(pretendente.Object);
             familia.Setup(f => f.ObterPontuacaoPorRendaFamiliar()).Returns(pontuacaoEsperada);
@@ -46,10 +42,8 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_calcular_a_pontuacao_da_familia_pelo_numero_de_dependentes()
         {
             var pontuacaoEsperada = faker.Random.Int(0, 100);
-
             var pretendente = new Mock<IPretendente>();
             pretendente.Setup(p => p.ObterPontuacaoPorIdade()).Returns(0);
-
             var familia = new Mock<IFamilia>();
             familia.Setup(f => f.Pretendente).Returns(pretendente.Object);
             familia.Setup(f => f.ObterPontuacaoPorRendaFamiliar()).Returns(0);
@@ -66,15 +60,12 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
             var pontuacaoDoPretendentePorIdade = faker.Random.Int(0, 100);
             var pontuacaoPorRendaFamiliar = faker.Random.Int(0, 100);
             var pontuacaoPelaQuantidadeDeDependentes = faker.Random.Int(0, 100);
-
             var pontuacaoEsperada = 
                 pontuacaoDoPretendentePorIdade + 
                 pontuacaoPorRendaFamiliar + 
                 pontuacaoPelaQuantidadeDeDependentes;
-
             var pretendente = new Mock<IPretendente>();
             pretendente.Setup(p => p.ObterPontuacaoPorIdade()).Returns(pontuacaoDoPretendentePorIdade);
-
             var familia = new Mock<IFamilia>();
             familia.Setup(f => f.Pretendente).Returns(pretendente.Object);
             familia.Setup(f => f.ObterPontuacaoPorRendaFamiliar()).Returns(pontuacaoPorRendaFamiliar);
@@ -105,13 +96,12 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         {
             var pretendente = new Mock<IPretendente>();
             pretendente.Setup(p => p.ObterPontuacaoPorIdade()).Returns(pontuacaoCriterioPretendente);
-
             var familia = new Mock<IFamilia>();
             familia.Setup(f => f.Pretendente).Returns(pretendente.Object);
             familia.Setup(f => f.ObterPontuacaoPorRendaFamiliar()).Returns(pontuacaoCriterioRendaFamiliar);
             familia.Setup(f => f.ObterPontuacaoPorQuantidadeDeDependentesValidos()).Returns(pontuacaoCriterioQuantidadeDeDependentes);
-
             var pontuador = new CalculadoraDePontos();
+            
             pontuador.Calcular(familia.Object);
 
             Assert.Equal(quantidadeEsperadaDeCriteriosAtendidos, pontuador.QuantidadeDeCriteriosAtendidos);

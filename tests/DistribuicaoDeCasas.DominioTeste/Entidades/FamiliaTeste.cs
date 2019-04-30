@@ -81,82 +81,82 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_retornar_a_pontuacao_esperada_caso_nao_existam_dependentes()
         {
             var pontuacaoEsperada = 0;
-
             var familia = new Familia(
                 new Mock<IPretendente>().Object, 
                 new Mock<IConjuge>().Object, 
                 null
             );
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorQuantidadeDeDependentesValidos();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         [Fact]
         public void Deve_retornar_a_pontuacao_esperada_caso_nao_existam_dependentes_validos()
         {
             var pontuacaoEsperada = 0;
-
             var dependente = new Mock<IDependente>();
             dependente.Setup(d => d.EhMaiorDeIdade()).Returns(true);
-
             var dependentes = new List<IDependente> { dependente.Object };
-
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorQuantidadeDeDependentesValidos();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         [Fact]
         public void Deve_retornar_a_pontuacao_esperada_caso_exista_1_dependente_valido()
         {
-            var pontuacaoEsperada = 2;   
-
+            var pontuacaoEsperada = 2;
             var dependentes = new List<IDependente> { DependenteValido.Object };
-
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorQuantidadeDeDependentesValidos();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         [Fact]
         public void Deve_retornar_a_pontuacao_esperada_caso_existam_2_dependentes_validos()
         {
             var pontuacaoEsperada = 2;
-            
             var dependentes = new List<IDependente> { DependenteValido.Object, DependenteValido.Object };
-
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorQuantidadeDeDependentesValidos();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         [Fact]
         public void Deve_retornar_a_pontuacao_esperada_caso_existam_3_dependentes_validos()
         {
             var pontuacaoEsperada = 3;
-           
             var dependentes = new List<IDependente> { DependenteValido.Object, DependenteValido.Object, DependenteValido.Object };
-
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorQuantidadeDeDependentesValidos();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         [Fact]
         public void Deve_retornar_a_pontuacao_esperada_caso_existam_mais_de_3_dependentes_validos()
         {
             var pontuacaoEsperada = 3;
-          
             var dependentes = new List<IDependente> { 
                     DependenteValido.Object, 
                     DependenteValido.Object, 
                     DependenteValido.Object, 
                     DependenteValido.Object 
                 };
-
             var familia = FamiliaBuilder.Instancia().ComDependentes(dependentes).Construir();
-
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorQuantidadeDeDependentesValidos());
+            
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorQuantidadeDeDependentesValidos();
+            
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         public static IEnumerable<object[]> RendaDosConjugesAte900Reais =>
@@ -172,17 +172,17 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_retornar_a_pontuacao_esperada_para_renda_familiar_de_ate_900_reais(decimal rendaPretendente, decimal rendaConjuge)
         {
             var pontuacaoEsperada = 5;
-
             Pretendente.Setup(p => p.Renda).Returns(rendaPretendente);
             Conjuge.Setup(p => p.Renda).Returns(rendaConjuge);
-
             var familia = new Familia(
                 Pretendente.Object, 
                 Conjuge.Object, 
                 null
             );
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorRendaFamiliar());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorRendaFamiliar();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         public static IEnumerable<object[]> RendaDosConjugesEntre901E1500Reais =>
@@ -198,13 +198,13 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_retornar_a_pontuacao_esperada_para_renda_familiar_de_901_a_1500_reais(decimal rendaPretendente, decimal rendaConjuge)
         {
             var pontuacaoEsperada = 3;
-
             Pretendente.Setup(p => p.Renda).Returns(rendaPretendente);
             Conjuge.Setup(p => p.Renda).Returns(rendaConjuge);
-
             var familia = FamiliaBuilder.Instancia().ComPretendente(Pretendente).ComConjuge(Conjuge).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorRendaFamiliar());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorRendaFamiliar();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
 
         public static IEnumerable<object[]> RendaDosConjugesEntre1501E2000Reais =>
@@ -220,13 +220,13 @@ namespace DistribuicaoDeCasas.DominioTeste.Entidades
         public void Deve_retornar_a_pontuacao_esperada_para_renda_familiar_de_1501_e_2000_reais(decimal rendaPretendente, decimal rendaConjuge)
         {
             var pontuacaoEsperada = 1;
-
             Pretendente.Setup(p => p.Renda).Returns(rendaPretendente);
             Conjuge.Setup(p => p.Renda).Returns(rendaConjuge);
-
             var familia = FamiliaBuilder.Instancia().ComPretendente(Pretendente).ComConjuge(Conjuge).Construir();
 
-            Assert.Equal(pontuacaoEsperada, familia.ObterPontuacaoPorRendaFamiliar());
+            var pontuacaoEncontrada = familia.ObterPontuacaoPorRendaFamiliar();
+
+            Assert.Equal(pontuacaoEsperada, pontuacaoEncontrada);
         }
     }
 }
